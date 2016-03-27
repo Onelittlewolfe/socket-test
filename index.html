@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Props</title>
+    <style>
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	
+	#container {
+		max-width: 800px;
+		height: auto;
+		margin: 0 auto;
+	}
+	
+	.prop {
+		float: left;
+	    width: 28%;
+	    height: 200px;
+	    background-color: #e1e1e1;
+	    margin: 1em;
+	}
+		
+		
+		
+    </style>
+  </head>
+  <body>
+   
+   <div id="container">
+   	<div class="row">
+   		<div id='prop-1' class="prop"></div>
+   		<div id='prop-2' class="prop"></div>
+   		<div id='prop-3' class="prop"></div>
+   	</div>
+	
+   </div>
+   
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+	
+	var props = document.querySelectorAll('.prop'), i;
+	
+	for (i=0; i< props.length; i++){
+		
+		props[i].addEventListener('click' , propClickHandler, false );
+		
+	};
+	
+	
+	  var socket = io();
+	  
+	  function propClickHandler (event) {
+		var prop = event.currentTarget.id;
+		
+		socket.emit('update prop', prop );
+		
+		console.log(prop);
+		return false;
+			
+		
+	  };
+	  
+	  
+	  socket.on('chat message' , function(msg) {
+		  $('#messages').append($('<li>').text(msg));
+		
+	  })
+	  
+	</script>
+	
+  </body>
+</html>
