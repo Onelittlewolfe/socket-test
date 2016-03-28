@@ -1,5 +1,5 @@
-
-var app = require('express')();
+var express = require('express');
+var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
@@ -14,6 +14,9 @@ app.get('/show', function( reg, res ) {
 	res.sendFile(__dirname + '/show.html');
 	
 });
+
+
+app.use("/assets", express.static(__dirname + '/assets'));
 
 
 io.on('connection' , function(socket){
